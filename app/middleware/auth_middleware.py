@@ -4,11 +4,12 @@ from pathlib import Path
 import json
 
 def load_auth_config():
-    auth_file = Path(__file__).parent / "auth.json" 
+    auth_file = Path(__file__).parent.parent.parent / "auth.json" 
     if not auth_file.exists():
         return None
     try:
         return json.loads(auth_file.read_text())
+        
     except Exception:
         return None
 
