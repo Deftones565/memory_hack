@@ -73,18 +73,20 @@ def download_mem_edit():
     request.urlretrieve(remote_url, local_file)
 
 def extract_source():
+
     print('extracting...')
-    with zipfile.ZipFile("master.zip","r") as zip_ref:
+    with zipfile.ZipFile("master.zip", "r") as zip_ref:
         for x in zip_ref.infolist():
-            fp = Path(*Path(x.filename).parts[1:])
-            if len(fp) == 0:
+            # Remove the top-level folder that GitHub adds
+            parts = Path(x.filename).parts
+            fp = Path(*parts[1:])  # skip the first folder
+            if not fp:
                 continue
             if x.is_dir():
                 os.makedirs(fp, exist_ok=True)
             else:
                 data = zip_ref.read(x)
-                data_path = Path(fp)
-                data_path.write_bytes(data)
+                fp.write_bytes(data)
     os.unlink("master.zip")
 
 def create_venv():

@@ -5,3 +5,4 @@ mem-edit==0.8
 psutil==7.0.0
 legacy-cgi==2.6.3
 falcon_auth
+hypercorn
