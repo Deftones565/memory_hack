@@ -58,7 +58,7 @@ def generate_ssl_keys():
     print("SSL keys generated: cert.pem and key.pem")
 
 def download_source():
-    remote_url = 'https://github.com/primetime00/memory_hack/archive/refs/heads/master.zip'
+    remote_url = 'https://github.com/Deftones565/memory_hack/archive/refs/heads/feature/ssl-basic-auth.zip'
     # Define the local filename to save data
     local_file = 'master.zip'
     # Download remote and save locally
@@ -73,18 +73,20 @@ def download_mem_edit():
     request.urlretrieve(remote_url, local_file)
 
 def extract_source():
+
     print('extracting...')
-    with zipfile.ZipFile("master.zip","r") as zip_ref:
+    with zipfile.ZipFile("master.zip", "r") as zip_ref:
         for x in zip_ref.infolist():
-            fp = x.filename.replace(zip_dir_name+'/','')
-            if len(fp) == 0:
+            # Remove the top-level folder that GitHub adds
+            parts = Path(x.filename).parts
+            fp = Path(*parts[1:])  # skip the first folder
+            if not fp:
                 continue
             if x.is_dir():
                 os.makedirs(fp, exist_ok=True)
             else:
                 data = zip_ref.read(x)
-                data_path = Path(fp)
-                data_path.write_bytes(data)
+                fp.write_bytes(data)
     os.unlink("master.zip")
 
 def create_venv():
