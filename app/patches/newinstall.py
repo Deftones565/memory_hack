@@ -76,7 +76,7 @@ def extract_source():
     print('extracting...')
     with zipfile.ZipFile("master.zip","r") as zip_ref:
         for x in zip_ref.infolist():
-            fp = x.filename.replace(zip_dir_name+'/','')
+            fp = Path(*Path(x.filename).parts[1:])
             if len(fp) == 0:
                 continue
             if x.is_dir():
