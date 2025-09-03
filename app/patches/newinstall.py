@@ -254,7 +254,7 @@ else:
             if wants_service_run():
                 if os.geteuid() != 0:
                     get_sudo('--service_run')
-                    print("Service is running.\nYou can test by accessing http://{}:5000.".format(get_hostname()))
+                    print("Service is running.\nYou can test by accessing https://{}:5000.".format(get_hostname()))
     else:
         if wants_service():
             get_sudo('--service_install')
