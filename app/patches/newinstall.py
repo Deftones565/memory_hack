@@ -58,7 +58,7 @@ def generate_ssl_keys():
     print("SSL keys generated: cert.pem and key.pem")
 
 def download_source():
-    remote_url = 'https://github.com/Deftones565/memory_hack/archive/refs/heads/feature/ssl-basic-auth.zip'
+    remote_url = 'https://github.com/Deftones565/memory_hack/archive/refs/heads/master.zip'
     # Define the local filename to save data
     local_file = 'master.zip'
     # Download remote and save locally
@@ -254,7 +254,7 @@ else:
             if wants_service_run():
                 if os.geteuid() != 0:
                     get_sudo('--service_run')
-                    print("Service is running.\nYou can test by accessing http://{}:5000.".format(get_hostname()))
+                    print("Service is running.\nYou can test by accessing https://{}:5000.".format(get_hostname()))
     else:
         if wants_service():
             get_sudo('--service_install')
